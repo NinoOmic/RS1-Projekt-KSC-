@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title - Kulturno sportski centar</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/Template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="~/Template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="~/Template/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/Template/css/sb-admin.css" rel="stylesheet">
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation-->
+    @using Kulturno_sportski_centar.Helper;
+    @if (Autentifikacija.KorisnikSesija != null)
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <a class="navbar-brand" href="/Home">Kulturno sportski centar</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                        <a class="nav-link" href="/Home">
+                            <i class="fa fa-fw fa-dashboard"></i>
+                            <span class="nav-link-text">Početna</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                        <a class="nav-link" href="@Url.Action("Index", "Termin", new { Area = "ModulZaposlenik"})">
+                            <i class="fa fa-calendar"></i>
+                            <span class="nav-link-text">Termini</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                        <a class="nav-link" href="@Url.Action("Index", "Rezervacija", new { Area = "ModulKorisnik"})">
+                            <i class="fa fa-check"></i>
+                            <span class="nav-link-text">Rezervacije</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                        <a class="nav-link" href="@Url.Action("Index", "Korisnik", new { Area = "ModulKorisnik"})">
+                            <i class="fa fa-users"></i>
+                            <span class="nav-link-text">Korisnici</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                        <a class="nav-link" href="@Url.Action("Index", "Sala", new { Area = "ModulZaposlenik"})">
+                            <i class="fa fa-university"></i>
+                            <span class="nav-link-text">Sale</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                            <i class="fa fa-globe"></i>
+                            <span class="nav-link-text">Lokacija</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                            <li>
+                                <a href="@Url.Action("Index", "Drzava", new { Area = "ModulAdministrator"})">
+                                    <i class="fas fa-map-marker-alt"></i>Država
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Regija", new { Area = "ModulAdministrator"})">
+                                    <i class="fas fa-map-marker-alt"></i>Regija
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Grad", new { Area = "ModulAdministrator"})">
+                                    <i class="fas fa-map-marker-alt"></i>Grad
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <ul class="navbar-nav sidenav-toggler">
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="sidenavToggler">
+                            <i class="fa fa-fw fa-angle-left"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link"  href="/ModulKorisnik/Korisnik/Detalji/?Id=@Autentifikacija.KorisnikSesija.Id">
+                            <i class="fa fa-id-card"></i>Profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-fw fa-sign-out"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <!-- Breadcrumbs-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/home">Početna</a>
+                    </li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+
+            <footer class="sticky-footer">
+                <div class="container">
+                    <div class="text-center">
+                        <small>Copyright  &copy; @DateTime.Now.Year - FIT</small>
+                    </div>
+                </div>
+            </footer>
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+            <!-- Logout Modal-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="login.html">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container main-content">
+                @RenderBody()
+             
+                
+            </div>
+        </div>
+    }
+    @if (Autentifikacija.KorisnikSesija == null)
+    {
+        @RenderBody()
+    }
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Template/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Template/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="~/Template/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Template/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/Template/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/Template/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="~/Template/js/sb-admin-datatables.min.js"></script>
+    <script src="~/Template/js/sb-admin-charts.min.js"></script>
+
+</body>
+        </html>
+
+
+
+
+
+
+        @*<!DOCTYPE html>
+            <html>
+            <head>
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>@ViewBag.Title -  Kulturno sportski centar</title>
+                    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+                  <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+                    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                    <script src="https://maxcdn.bootstrap.cdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+                    <link href="~/Content/LogIN.css" rel="stylesheet" type="text/css" />
+                    <!-- Pixel Admin's stylesheets -->
+
+                </head>
+            <body>
+
+                    <div class="container main-content">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; @DateTime.Now.Year - FIT</p>
+                        </footer>
+                    </div>
+
+
+
+
+
+            </body>
+            </html>
+
+            <!-- end document-->
+            @*<!DOCTYPE html>*@
+    @*<html lang="en">
+        <head>
+            <!-- Required meta tags-->
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="au theme template">
+            <meta name="author" content="Hau Nguyen">
+            <meta name="keywords" content="au theme template">
+
+
+            <title>@ViewBag.Title - Kulturno sportski centar</title>
+            <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+            <link href="~/Content/LogIN.css" rel="stylesheet" type="text/css" />
+            <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+            <script src="~/Scripts/modernizr-2.6.2.js"></script>
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+            <!-- Title Page-->
+            <title>Dashboard</title>
+            <!-- Fontfaces CSS-->
+            <link href="~/Template/css/font-face.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+            <!-- Bootstrap CSS-->
+            <link href="~/Template/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+            <!-- Vendor CSS-->
+            <link href="~/Template/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/wow/animate.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/slick/slick.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+            <link href="~/Template/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+            <!-- Main CSS-->
+            <link href="~/Template/css/theme.css" rel="stylesheet" media="all">
+        </head>
+        <body>
+
+            @*using Kulturno_sportski_centar.Helper;
+            @if (Autentifikacija.KorisnikSesija != null)
+            {
+                <div class="main-wrapper">
+
+
+                    <!-- MENU SIDEBAR-->
+                    <div class="menu-sidebar d-none d-lg-block">
+                        <div class="logo">
+                            <a href="~/Views/Home/Index.cshtml">
+                                <img src="images/icon/logo.png" alt="Cool Admin" />
+                            </a>
+                        </div>
+                        <div class="menu-sidebar__content js-scrollbar1">
+                            <nav class="navbar-sidebar">
+                                <ul class="list-unstyled navbar__list">
+                                    <li class="active has-sub">
+                                        <a class="js-arrow" href="/Home">
+                                            <i class="fas fa-home"></i>Početna
+                                        </a>
+
+                                    </li>
+
+                                    <li>
+                                        <a href="@Url.Action("Index", "Termin", new { Area = "ModulZaposlenik"})">
+                                            <i class="fas fa-calendar-alt"></i>Termini
+                                        </a>
+                                    </li>
+                                    <li class="has-sub">
+                                        <a class="js-arrow" href="@Url.Action("Index", "Rezervacija", new { Area = "ModulKorisnik"})">
+                                            <i class="fas fa-check"></i>Rezervacije
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Korisnik", new { Area = "ModulKorisnik"})">
+                                            <i class="fas fa-users"></i>Korisnici
+                                        </a>
+                                    </li>
+                                    <li class="active has-sub">
+
+
+                                        <a class="js-arrow" href="#">
+                                            <i class="fa fa-globe"></i>Lokacija
+                                            <span class="arrow">
+                                                <i class="fas fa-angle-down"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                            <li>
+                                                <a href="@Url.Action("Index", "Drzava", new { Area = "ModulAdministrator"})">
+                                                    <i class="fas fa-map-marker-alt"></i>Država
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index", "Regija", new { Area = "ModulAdministrator"})">
+                                                    <i class="fas fa-map-marker-alt"></i>Regija
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index", "Grad", new { Area = "ModulAdministrator"})">
+                                                    <i class="fas fa-map-marker-alt"></i>Grad
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+
+
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- END MENU SIDEBAR-->
+                     PAGE CONTAINER
+                    <div class="navbar navbar-fixed-top">
+                        <!-- HEADER DESKTOP-->
+                        <header class="header-desktop">
+                            <div class="section__content section__content--p30">
+                                <div class="container-fluid">
+                                    <div class="header-wrap">
+
+                                        <div class="header-button">
+
+                                            <div class="account-wrap">
+                                                <div class="account-item clearfix js-item-menu">
+                                                    <div class="image">
+                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                    </div>
+                                                    <div class="content">
+                                                        <a class="js-acc-btn" href="#">john doe</a>
+                                                    </div>
+                                                    <div class="account-dropdown js-dropdown">
+                                                        <div class="info clearfix">
+                                                            <div class="image">
+                                                                <a href="#">
+                                                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                                </a>
+                                                            </div>
+                                                            <div class="content">
+                                                                <h5 class="name">
+                                                                    <a href="#">john doe</a>
+                                                                </h5>
+                                                                <span class="email">johndoe@example.com</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="account-dropdown__body">
+                                                            <div class="account-dropdown__item">
+                                                                <a href="#">
+                                                                    <i class="zmdi zmdi-account"></i>Account
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="account-dropdown__footer">
+                                                            <a href="#">
+                                                                <i class="zmdi zmdi-power"></i>Logout
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                        <!-- HEADER DESKTOP-->
+                        <!-- MAIN CONTENT-->
+                        <!-- END MAIN CONTENT-->
+                        <!-- END PAGE CONTAINER-->
+                    </div>
+                     </div>*@
+    @*@using Kulturno_sportski_centar.Helper;
+                @if (Autentifikacija.KorisnikSesija != null)
+            {
+                <div id="main-wrapper">
+                    @Html.Partial("_HEADER")
+                    <div id="main-menu" role="navigation">
+                        <br />
+                        <div id="main-menu-inner">
+                            <ul class="navigation">
+                                <li>
+                                    @Html.Partial("_sidebar")
+                                </li>
+                            </ul>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+        }
+
+
+                    @RenderBody()
+
+
+
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - FIT</p>
+                </footer>
+
+
+
+
+
+
+                <!-- Jquery JS-->
+                <script src="~/Template/vendor/jquery-3.2.1.min.js"></script>
+                <!-- Bootstrap JS-->
+                <script src="~/Template/vendor/bootstrap-4.1/popper.min.js"></script>
+                <script src="~/Template/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+                <!-- Vendor JS       -->
+                <script src="~/Template/vendor/slick/slick.min.js">
+                </script>
+                <script src="~/Template/vendor/wow/wow.min.js"></script>
+                <script src="~/Template/vendor/animsition/animsition.min.js"></script>
+                <script src="~/Template/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+                </script>
+                <script src="~/Template/vendor/counter-up/jquery.waypoints.min.js"></script>
+                <script src="~/Template/vendor/counter-up/jquery.counterup.min.js">
+                </script>
+                <script src="~/Template/vendor/circle-progress/circle-progress.min.js"></script>
+                <script src="~/Template/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+                <script src="~/Template/vendor/chartjs/Chart.bundle.min.js"></script>
+                <script src="~/Template/vendor/select2/select2.min.js">
+                </script>
+                <!-- Main JS-->
+                <script src="~/Template/js/main.js"></script>
+            </body>
+            </html>*@
+    <!-- end document-->

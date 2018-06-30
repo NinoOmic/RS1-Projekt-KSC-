@@ -1,0 +1,42 @@
+﻿@using WebApplication2.Models;
+@{
+    // Layout = null;
+    ViewBag.Title = "Termin";
+}
+@model Kulturno_sportski_centar.Areas.ModulZaposlenik.Models.TerminPrikaziViewModel
+<h1>Aktivni termini</h1>
+
+    <form>
+        @Html.DropDownListFor(model => model.SalaId, Model.ListaSala, new { @class = "btn btn-secondary dropdown-toggle" })
+
+        <input type="submit" value="Odaberi" class="btn btn-default" />
+    </form>
+
+
+
+<table class="table table-bordered table-hover ">
+    <thead class="thead-active">
+        <tr>
+            <td>Datum</td>
+            <td>Pocetak</td>
+            <td>Kraj</td>
+            <td>Sala</td>
+            <td>Akcija</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.Termini)
+        {
+            <tr>
+                <td>@x.Datum.ToLongDateString()</td>
+                <td>@x.Pocetak</td>
+                <td>@x.Kraj</td>
+                <td>@x.Sala.Naziv</td>
+                <td><a href="/ModulKorisnik/Rezervacija/Snimi?TerminId=@x.Id" class="btn btn-success">Rezervisi</a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+

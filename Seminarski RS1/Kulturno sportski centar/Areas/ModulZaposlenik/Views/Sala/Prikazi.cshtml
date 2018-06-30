@@ -1,0 +1,39 @@
+﻿@using WebApplication2.Models;
+@{
+    //Layout = null;
+    List<Sala> sale = (List<Sala>)ViewData["Sala"];
+ }
+@{
+    ViewBag.Title = "Sala";
+}
+
+
+<h1>Prikaz sala</h1>
+
+
+           
+<table class="table table-bordered table-hover ">
+<thead>
+<tr>
+    <td>Id</td>
+    <td>Naziv</td>
+    <td>Vrsta</td>
+    <td>Broj sjedišta</td>
+    <td>Kapacitet</td>
+    <td>Kulturno sportski centar</td>
+
+</tr>
+@foreach (Sala x in sale)
+{
+    <tr>
+        <td>@x.Id</td>
+        <td>@x.Naziv</td>
+        <td>@x.Vrsta</td>
+        <td>@x.BrojSjedista</td>
+        <td>@x.Kapacitet</td>
+        <td>@x.KulturnoSportskiCentar.Naziv</td>
+    </tr>
+}
+</thead>
+</table>
+        
