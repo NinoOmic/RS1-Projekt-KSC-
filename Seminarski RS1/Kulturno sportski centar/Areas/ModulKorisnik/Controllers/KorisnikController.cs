@@ -9,6 +9,7 @@ using System.Data.Entity;
 using Kulturno_sportski_centar.Models;
 using Kulturno_sportski_centar.Areas.ModulKorisnik.Models;
 using static Kulturno_sportski_centar.Areas.ModulKorisnik.Models.KorisnikPrikaziViewModel;
+using Kulturno_sportski_centar.Helper;
 
 namespace Kulturno_sportski_centar.Areas.ModulKorisnik
 {
@@ -18,6 +19,9 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
 
         public ActionResult Prikazi(int? UlogaNaSistemuId)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             KorisnikPrikaziViewModel Model = new KorisnikPrikaziViewModel();
            
             Model.Korisnici = ctx.Korisnik
@@ -38,6 +42,9 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
 
         public ActionResult Dodaj()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             KorisnikEditViewModel Model = new KorisnikEditViewModel();
             Korisnik k = new Korisnik();
            k.Osoba = new Osoba();
@@ -50,10 +57,14 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
 
         public ActionResult index()
         {
-            return View("index");
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+            return RedirectToAction("Prikazi");
         }
         public ActionResult Detalji(int Id)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             KorisnikPrikaziDetaljnoViewModel Model = new KorisnikPrikaziDetaljnoViewModel();
             
             List<Korisnik> Korisnici = ctx.Korisnik
@@ -86,7 +97,10 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
         }
 
         public ActionResult Uredi(int Id)
-        {   Korisnik a = ctx.Korisnik.Where(x => x.Id == Id).Include(x=>x.Osoba).FirstOrDefault();
+        {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+            Korisnik a = ctx.Korisnik.Where(x => x.Id == Id).Include(x=>x.Osoba).FirstOrDefault();
             KorisnikEditViewModel Model = new KorisnikEditViewModel();
             Model.Gradovi = UcitajGradove();
             Model.Uloge = UcitajUloge();
@@ -108,6 +122,8 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
         }
         public ActionResult Spremi(KorisnikEditViewModel K)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             if (!ModelState.IsValid)
             {
                 K.Gradovi = UcitajGradove();
@@ -147,6 +163,8 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
         }
         public ActionResult Obrisi(int Id)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             Korisnik k = new Korisnik();
             k = ctx.Korisnik.Where(x => x.Id == Id).FirstOrDefault();
             List<Rezervacija> rezervacijas = ctx.Rezervacija.Where(x => x.Korisnik.Id == k.Id).ToList();

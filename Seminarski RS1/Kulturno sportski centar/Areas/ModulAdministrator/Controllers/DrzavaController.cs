@@ -1,5 +1,6 @@
 ﻿using Kulturno_sportski_centar.Areas.ModulAdministrator.Models;
 using Kulturno_sportski_centar.DAL;
+using Kulturno_sportski_centar.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +15,25 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
         MojContext ctx = new MojContext();
         public ActionResult Prikazi()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             DrzavaPrikaziViewModel Model = new DrzavaPrikaziViewModel();
            Model.Drzave = ctx.Drzava.ToList();            
             return View("Prikazi",Model);
         }
         public ActionResult index()
         {
-            return View("index");
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
+            return RedirectToAction("Prikazi");
         }
         public ActionResult Dodaj()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             DrzavaEditModelView Model = new DrzavaEditModelView();
             Drzava d = new Drzava();
 
@@ -34,6 +44,9 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
 
         public ActionResult Uredi(int Id)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             Drzava d = ctx.Drzava.Where(x => x.Id == Id).FirstOrDefault();
             DrzavaEditModelView Model = new DrzavaEditModelView();
 
@@ -45,6 +58,9 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
 
         public ActionResult Spremi(DrzavaEditModelView D)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             if (!ModelState.IsValid)
             {
                 return View("Dodaj", D);
@@ -69,6 +85,9 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
         }
         public ActionResult Obrisi(int Id)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             Drzava d = new Drzava();
             d = ctx.Drzava.Where(x => x.Id == Id).FirstOrDefault();
            

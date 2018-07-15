@@ -15,6 +15,8 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
         MojContext ctx = new MojContext();
         public ActionResult Prikazi()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             RezervacijaPrikaziViewModel Model = new RezervacijaPrikaziViewModel();
             Model.Termini = ctx.Termin.ToList();
             Model.Korisnici = ctx.Korisnik.ToList();
@@ -34,6 +36,8 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
         }
         private void ProvjeraRezervacija()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                 RedirectToAction("Index", "Login", new { area = "" });
             List<Rezervacija> rezervacijas = ctx.Rezervacija.ToList();
             DateTime Datum = DateTime.Today;
             foreach (var x in rezervacijas)
@@ -45,11 +49,14 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
         }
         public ActionResult Index()
         {
-            return View("Index");
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+            return RedirectToAction("Prikazi");
         }
         public ActionResult Obrisi(int Id)
         {
-            
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             Rezervacija R = new Rezervacija();
             R = ctx.Rezervacija.Where(x => x.Id == Id).FirstOrDefault();
             ctx.Rezervacija.Remove(R);
@@ -58,21 +65,25 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
             return RedirectToAction("Prikazi");
         }
 
-        public ActionResult Dodaj(int TerminId)
-        {
-            RezervacijaDodajModelView Model = new RezervacijaDodajModelView();
-            Model.TerminId = TerminId;
-            return View("Dodaj", Model);
-        }
+
         public ActionResult Snimi(int TerminId)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             Rezervacija R = new Rezervacija();
-            R.Korisnik = Autentifikacija.KorisnikSesija;
-            Termin T = ctx.Termin.Where(x => x.Id == TerminId).FirstOrDefault();
+            Termin T = ctx.Termin.Where(y => y.Id == TerminId).FirstOrDefault();
+            Rezervacija R1 = new Rezervacija
+            {
+                Korisnik = Autentifikacija.KorisnikSesija,
+                isActive = true,
+                Termin = T,
+                Zavrsena = false
+
+            };
             T.Rezervisan = true;
-            R.Termin = T;
-            R.Zavrsena = false;
-            ctx.Rezervacija.Add(R);
+      
+           
+            ctx.Rezervacija.Add(R1);
             ctx.SaveChanges();
             return RedirectToAction("Prikazi");
         }

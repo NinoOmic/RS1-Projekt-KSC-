@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using WebApplication2.Models;
 using System.Data.Entity;
 using Kulturno_sportski_centar.Areas.ModulAdministrator.Models;
+using Kulturno_sportski_centar.Helper;
 
 namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
 {
@@ -17,6 +18,9 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
             MojContext ctx = new MojContext();
             public ActionResult Prikazi(int? RegijaId)
             {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             GradPrikaziViewModel Model = new GradPrikaziViewModel();
                
             Model.Gradovi = ctx.Grad
@@ -31,10 +35,15 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
             }
             public ActionResult index()
             {
-                return View("index");
-            }
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
+            return RedirectToAction("Prikazi");
+        }
             public ActionResult Dodaj()
             {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             GradEditViewModel Model = new GradEditViewModel();
             Model.Regije = UcitajRegije();
                 
@@ -43,6 +52,9 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
 
             public ActionResult Uredi(int Id)
             {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             GradEditViewModel Model = new GradEditViewModel();
             Model.Regije = UcitajRegije();
             Grad g = ctx.Grad.Where(x => x.Id == Id).FirstOrDefault();
@@ -56,6 +68,10 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
      
         public ActionResult Spremi(GradEditViewModel G)
             {
+
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
             if (!ModelState.IsValid)
             {
                 G.Regije = UcitajRegije();
@@ -84,7 +100,10 @@ namespace Kulturno_sportski_centar.Areas.ModulAdministrator.Controllers
             }
             public ActionResult Obrisi(int Id)
             {
-                Grad g = new Grad();
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+
+            Grad g = new Grad();
                 g = ctx.Grad.Where(x => x.Id == Id).FirstOrDefault();
 
                 ctx.Grad.Remove(g);

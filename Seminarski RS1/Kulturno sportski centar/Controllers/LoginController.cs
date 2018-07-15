@@ -41,5 +41,11 @@ namespace Kulturno_sportski_centar.Controllers
                 }
             }
         }
+
+        public ActionResult odjaviSe()
+        {
+            Autentifikacija.odjava();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

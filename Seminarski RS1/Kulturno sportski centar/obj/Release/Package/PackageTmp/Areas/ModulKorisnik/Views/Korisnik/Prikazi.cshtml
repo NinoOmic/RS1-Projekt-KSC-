@@ -2,7 +2,7 @@
 @using Kulturno_sportski_centar.Areas.ModulKorisnik.Models;
 @{
     // Layout = null;
-   
+
     ViewBag.Title = "Korisnik";
 }
 
@@ -11,7 +11,7 @@
 @model Kulturno_sportski_centar.Areas.ModulKorisnik.Models.KorisnikPrikaziViewModel
 
 <form>
-    @Html.DropDownListFor(model=>model.UlogaNaSistemuId,Model.ListaUloga,new { @class = "btn btn-secondary dropdown-toggle" })
+    @Html.DropDownListFor(model => model.UlogaNaSistemuId, Model.ListaUloga, new { @class = "btn btn-secondary dropdown-toggle" })
     <input type="submit" value="Odaberi" class="btn btn-default" />
 </form>
 
@@ -23,32 +23,31 @@
             <td>Prezime</td>
             <td>Korisnicko ime</td>
             <td>Uloga</td>
-            <td>Broj rezervacija</td>
+            
             <td>Akcija</td>
         </tr>
     </thead>
-    <tbody >
+    <tbody>
         @foreach (KorisnikPrikaziViewModel.KorisnikInfo a in Model.Korisnici)
-         {
-        <tr>
+        {
+            <tr>
 
-            <td>@a.Id</td>
-            <td>@a.Ime</td>
-            <td>@a.Prezime</td>
-            <td>@a.KorisnickoIme</td>
-           
-            <td>@a.UlogaNaSistemu</td>
-            <td>@a.BrojRezervacija</td>
-           
-            <td>
-            <a href="~/ModulKorisnik/Korisnik/Detalji/?Id=@a.Id" class="btn btn-info">Detaljno</a>
-            <a href="~/ModulKorisnik/Korisnik/Uredi/?Id=@a.Id" class="btn btn-primary">Uredi</a>
-            <a href="~/ModulKorisnik/Korisnik/Obrisi/?Id=@a.Id" class="btn btn-danger">Obrisi</a>
-            </td>
-         </tr>   
-          }
+                <td>@a.Id</td>
+                <td>@a.Ime</td>
+                <td>@a.Prezime</td>
+                <td>@a.KorisnickoIme</td>
+
+                <td>@a.UlogaNaSistemu</td>
+                
+
+                <td>
+                    <a href="~/ModulKorisnik/Korisnik/Detalji/?Id=@a.Id" class="btn btn-info">Detaljno</a>
+                    <a href="~/ModulKorisnik/Korisnik/Uredi/?Id=@a.Id" class="btn btn-primary">Uredi</a>
+                    <a href="~/ModulKorisnik/Korisnik/Obrisi/?Id=@a.Id" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-
-     
+<a href="~/ModulKorisnik/Korisnik/Dodaj" class="btn  btn-info">Dodaj Korisnika</a>

@@ -8,7 +8,7 @@
 
 
 <table class="table table-bordered table-hover ">
-    <thead >
+    <thead>
         <tr>
             <td>Id</td>
             <td>Datum</td>
@@ -21,20 +21,21 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (RezervacijaPrikaziViewModel.RezervacijaInfo x in Model.Rezervacije)
-       {
-        <tr>
-            <td>@x.Id</td>
-            <td>@x.Datum.ToLongDateString()</td>
-            <td>@x.Pocetak  </td>
-            <td>@x.Kraj</td>
-            <td>@x.Sala</td>
-            <td>@x.Korisnik</td>
-            <td>@(x.Zavrsena == false ? "NE" : "DA")</td>
-            <td><a href="/ModulKorisnik/Rezervacija/Obrisi/?Id=@x.Id" class="btn btn-danger">Obrisi</a></td>
-          
-        </tr>
-       }
-        
+        @foreach (RezervacijaPrikaziViewModel.RezervacijaInfo x in Model.Rezervacije)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.Datum.ToLongDateString()</td>
+                <td>@x.Pocetak  </td>
+                <td>@x.Kraj</td>
+                <td>@x.Sala</td>
+                <td>@x.Korisnik</td>
+                <td>@(x.Zavrsena == false ? "NE" : "DA")</td>
+                <td><a href="/ModulKorisnik/Rezervacija/Obrisi/?Id=@x.Id" class="btn btn-danger">Obrisi</a></td>
+
+            </tr>
+        }
+
     </tbody>
 </table>
+<a href="~/ModulZaposlenik/Termin/Prikazi" class="btn btn-info">Kreiraj rezervaciju</a> 

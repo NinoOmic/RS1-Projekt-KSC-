@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using WebApplication2.Models;
 using System.Data.Entity;
 using Kulturno_sportski_centar.Areas.ModulZaposlenik.Models;
+using Kulturno_sportski_centar.Helper;
 
 namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
 {
@@ -16,10 +17,14 @@ namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
        
         public ActionResult Index()
         {
-            return View("Index");
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+            return RedirectToAction("Prikazi");
         }
         public ActionResult Prikazi(int? SalaId)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             TerminPrikaziViewModel Model = new TerminPrikaziViewModel();
             Model.sale = ctx.Sala.Include(x => x.KulturnoSportskiCentar).ToList();
             ProvjeraTermin();
@@ -44,6 +49,8 @@ namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
 
         public ActionResult Dodaj()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             TerminEditViewModel Model = new TerminEditViewModel();
             Model.Sale = UcitajSale();
             
@@ -51,8 +58,26 @@ namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
             return View("Dodaj",Model);
         }
 
+
+        public ActionResult Obrisi(int Id)
+        {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
+            Termin T = new Termin();
+            T = ctx.Termin.Where(x => x.Id == Id).FirstOrDefault();
+            Rezervacija R = ctx.Rezervacija.Where(x => x.TerminId == T.Id).FirstOrDefault();
+            if (R != null) { ctx.Rezervacija.Remove(R); }
+           
+            ctx.Termin.Remove(T);
+            ctx.SaveChanges();
+
+            return RedirectToAction("Prikazi");
+        }
+
         public ActionResult Spremi(TerminEditViewModel T)
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             List<Sala> Sale = ctx.Sala.ToList();
             TimeSpan pocetak = new TimeSpan(10,0,0);
             TimeSpan kraj = new TimeSpan(23,0,0);

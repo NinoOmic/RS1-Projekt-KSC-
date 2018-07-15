@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using System.Data.Entity;
+using Kulturno_sportski_centar.Helper;
 
 namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
 {
@@ -16,12 +17,16 @@ namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
         // GET: Sala
         public ActionResult Index()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             return View("index");
         }
         
 
         public ActionResult Prikazi()
         {
+            if (Autentifikacija.KorisnikSesija == null)
+                return RedirectToAction("Index", "Login", new { area = "" });
             List<Sala> Sale = new List<Sala>();
       
           
