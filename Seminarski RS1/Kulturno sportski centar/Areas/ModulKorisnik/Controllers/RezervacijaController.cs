@@ -74,7 +74,7 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
             Termin T = ctx.Termin.Where(y => y.Id == TerminId).FirstOrDefault();
             Rezervacija R1 = new Rezervacija
             {
-                Korisnik = Autentifikacija.KorisnikSesija,
+                KorisnikId = Autentifikacija.KorisnikSesija.Id,
                 isActive = true,
                 Termin = T,
                 Zavrsena = false
