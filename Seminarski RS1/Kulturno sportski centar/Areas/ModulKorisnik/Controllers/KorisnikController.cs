@@ -47,20 +47,20 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
 
             KorisnikEditViewModel Model = new KorisnikEditViewModel();
             Korisnik k = new Korisnik();
-           k.Osoba = new Osoba();
+            k.Osoba = new Osoba();
             k.UlogaNaSistemu = new UlogaNaSistemu();
             Model.Uloge = UcitajUloge();
             Model.Gradovi = UcitajGradove();
             return View("Dodaj", Model);
-        }
-       
+        }  
 
-        public ActionResult index()
+        public ActionResult Index()
         {
             if (Autentifikacija.KorisnikSesija == null)
                 return RedirectToAction("Index", "Login", new { area = "" });
             return RedirectToAction("Prikazi");
         }
+
         public ActionResult Detalji(int Id)
         {
             if (Autentifikacija.KorisnikSesija == null)
@@ -83,7 +83,7 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
                 KorisnickoIme = x.Osoba.KorisnickoIme,
                 UlogaNaSistemu = x.UlogaNaSistemu.Uloga,
                 DatumRegistracije = x.DatumRegistracije,
-                DatumRodjenja = x.Osoba.DatumRodjenja,
+                DatumRodjenja = (DateTime)x.Osoba.DatumRodjenja,
                 Grad = x.Osoba.Grad.Naziv,
                 Adresa = x.Osoba.Adresa,
                 JMBG = x.Osoba.JMBG,
@@ -91,7 +91,6 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
                 Telefon = x.Osoba.Telefon
             }).FirstOrDefault();
 
-            
 
             return View("Detalji",Model);
         }
@@ -104,84 +103,140 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik
             KorisnikEditViewModel Model = new KorisnikEditViewModel();
             Model.Gradovi = UcitajGradove();
             Model.Uloge = UcitajUloge();
-             Model.Ime=  a.Osoba.Ime;
+            Model.Ime=  a.Osoba.Ime;
             Model.DatumRegistracije= a.DatumRegistracije  ;
-          Model.Prezime=  a.Osoba.Prezime ;
-          Model.DatumRodjenja=  a.Osoba.DatumRodjenja;
-           Model.KorisnckoIme= a.Osoba.KorisnickoIme ;
+            Model.Prezime=  a.Osoba.Prezime ;
+            Model.DatumRodjenja= a.Osoba.DatumRodjenja;
+            Model.KorisnckoIme= a.Osoba.KorisnickoIme ;
             Model.JMBG=a.Osoba.JMBG ;
-          Model.Telefon=  a.Osoba.Telefon ;
+            Model.Telefon=  a.Osoba.Telefon ;
             Model.Adresa=a.Osoba.Adresa ;
-           Model.Email= a.Osoba.Email ;
-           Model.Lozinka= a.Osoba.Lozinka;
-           Model.GradId= a.Osoba.GradId ;
-          Model.UlogaId= a.UlogaNaSistemuId ;
+            Model.Email= a.Osoba.Email ;
+            Model.Lozinka= a.Osoba.Lozinka;
+            Model.GradId= a.Osoba.GradId ;
+            Model.UlogaId= a.UlogaNaSistemuId ;
            
 
             return View("Dodaj",Model);
         }
-        public ActionResult Spremi(KorisnikEditViewModel K)
+        public ActionResult Spremi(KorisnikEditViewModel Model)
         {
             if (Autentifikacija.KorisnikSesija == null)
                 return RedirectToAction("Index", "Login", new { area = "" });
             if (!ModelState.IsValid)
             {
-                K.Gradovi = UcitajGradove();
-                K.Uloge = UcitajUloge();
-                return View("Dodaj", K);
+                Model.Gradovi = UcitajGradove();
+                Model.Uloge = UcitajUloge();
+                return View("Dodaj", Model);
             }
-            Korisnik korisnik;
-            if ( K.Id==0)
+            Korisnik K;
+            Osoba O;
+            if ( Model.Id==0)
             {
-                korisnik = new Korisnik();
-                korisnik.Osoba = new Osoba();
-               //a.UlogaNaSistemu = new UlogaNaSistemu();
-                ctx.Korisnik.Add(korisnik);
+                K = new Korisnik();
+                O = new Osoba();
+
+                ctx.Osoba.Add(O);
+
+                O.Grad = ctx.Grad.Where(x => x.Id == Model.GradId).FirstOrDefault();
+                O.GradId = Model.GradId;
+                O.Ime = Model.Ime;
+                O.Prezime = Model.Prezime;
+                O.KorisnickoIme = Model.KorisnckoIme;
+                O.Lozinka = Model.Lozinka;
+                O.JMBG = Model.JMBG;
+                O.Telefon = Model.Telefon;
+                O.DatumRodjenja = Model.DatumRodjenja;
+                O.Adresa = Model.Adresa;
+                O.Email = Model.Email;
+                ctx.SaveChanges();
+
+                ctx.Korisnik.Add(K);
+                K.OsobaId = ctx.Osoba.Where(x => x.KorisnickoIme == O.KorisnickoIme).FirstOrDefault().Id;
+                K.Osoba = ctx.Osoba.Where(x => x.KorisnickoIme == O.KorisnickoIme).FirstOrDefault();
+                K.DatumRegistracije = DateTime.Now;
+                K.UlogaNaSistemu = ctx.UlogaNaSistemu.Where(x => x.Id == 2).FirstOrDefault();
+                K.UlogaNaSistemuId = 2;
+                ctx.SaveChanges();
+
+
             }
             else
             {
-                korisnik = ctx.Korisnik.Where(x => x.Id == K.Id).Include(x=>x.Osoba).FirstOrDefault();
-              
+                O = ctx.Osoba.Where(x => x.Id == Model.Id).FirstOrDefault();
+                K = ctx.Korisnik.Where(x => x.OsobaId == O.Id).FirstOrDefault();
+
+                K.OsobaId = ctx.Osoba.Where(x => x.KorisnickoIme == O.KorisnickoIme).FirstOrDefault().Id;
+                K.Osoba = ctx.Osoba.Where(x => x.KorisnickoIme == O.KorisnickoIme).FirstOrDefault();
+                K.DatumRegistracije = DateTime.Now;
+                K.UlogaNaSistemu = ctx.UlogaNaSistemu.Where(x => x.Id == 2).FirstOrDefault();
+                K.UlogaNaSistemuId = 2;
+                ctx.SaveChanges();
+
+                O.Grad = ctx.Grad.Where(x => x.Id == Model.GradId).FirstOrDefault();
+                O.GradId = Model.GradId;
+                O.Ime = Model.Ime;
+                O.Prezime = Model.Prezime;
+                O.KorisnickoIme = Model.KorisnckoIme;
+                O.Lozinka = Model.Lozinka;
+                O.JMBG = Model.JMBG;
+                O.Telefon = Model.Telefon;
+                O.DatumRodjenja = Model.DatumRodjenja;
+                O.Adresa = Model.Adresa;
+                O.Email = Model.Email;
+                ctx.SaveChanges();
+
             }
 
-            korisnik.Osoba.Ime = K.Ime;
-            korisnik.DatumRegistracije = DateTime.Now.Date;
-            korisnik.Osoba.Prezime = K.Prezime;
-            korisnik.Osoba.DatumRodjenja = K.DatumRodjenja;
-            korisnik.Osoba.KorisnickoIme = K.KorisnckoIme;
-            korisnik.Osoba.JMBG = K.JMBG;
-            korisnik.Osoba.Telefon = K.Telefon;
-            korisnik.Osoba.Adresa = K.Adresa;
-            korisnik.Osoba.Email = K.Email;
-            korisnik.Osoba.Lozinka = K.Lozinka;
-            korisnik.Osoba.GradId = K.GradId;
-            korisnik.UlogaNaSistemuId = K.UlogaId;
-            korisnik.UlogaNaSistemu = ctx.UlogaNaSistemu.Where(x => x.Id == K.UlogaId).FirstOrDefault();
-            korisnik.Osoba.Grad = ctx.Grad.Where(x => x.Id == K.GradId).FirstOrDefault();
-             ctx.SaveChanges();
-            return RedirectToAction("Prikazi");
+            return RedirectToAction("Detalji", new { Id = K.Id });
         }
         public ActionResult Obrisi(int Id)
         {
             if (Autentifikacija.KorisnikSesija == null)
                 return RedirectToAction("Index", "Login", new { area = "" });
+
+
+            Uposlenik u = new Uposlenik();
+
             Korisnik k = new Korisnik();
+
             k = ctx.Korisnik.Where(x => x.Id == Id).FirstOrDefault();
+
+            u = ctx.Uposlenik.Where(x => x.OsobaId == k.OsobaId).FirstOrDefault();
+            if (u != null)
+            {
+                return RedirectToAction("Prikazi");
+            }
+
             List<Rezervacija> rezervacijas = ctx.Rezervacija.Where(x => x.Korisnik.Id == k.Id).ToList();
             foreach (var x in rezervacijas)
             {
+                ctx.Termin.Where(y => y.Id == x.TerminId).FirstOrDefault().Rezervisan = false;
                 ctx.Rezervacija.Remove(x);
                 ctx.SaveChanges();
             }
+
+            List<RezervacijaZaDogadjaj> rez = ctx.RezervacijaZaDogadjaj.Where(x => x.OsobaId == k.OsobaId).ToList();
+            foreach(var r in rez)
+            {
+                ctx.RezervacijaZaDogadjaj.Remove(r);
+                ctx.SaveChanges();
+            }
+
+            int pom = k.OsobaId;
+            Osoba o = ctx.Osoba.Where(x => x.Id == pom).FirstOrDefault();
+
             ctx.Korisnik.Remove(k);
+            ctx.Osoba.Remove(o);
             ctx.SaveChanges();
 
             return RedirectToAction("Prikazi");
         }
+
         private List<SelectListItem> UcitajUloge()
         {
             List<SelectListItem> uloge = new List<SelectListItem>();
-            uloge.AddRange(ctx.UlogaNaSistemu.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Uloga }));
+            uloge.AddRange(ctx.UlogaNaSistemu.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Uloga + " " + x.Id.ToString() }));
 
             return uloge;
         }

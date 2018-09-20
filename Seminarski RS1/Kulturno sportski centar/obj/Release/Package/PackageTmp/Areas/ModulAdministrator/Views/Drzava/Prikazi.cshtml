@@ -1,5 +1,6 @@
 ﻿@using WebApplication2.Models;
 @using Kulturno_sportski_centar.Areas.ModulAdministrator.Models;
+@using Kulturno_sportski_centar.Helper;
 @{
 
     ViewBag.Title = "Država";
@@ -17,7 +18,10 @@
             <td>Id</td>
             <td>Naziv</td>
             <td>Oznaka</td>
-            <td>Akcija</td>
+            @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 1)
+            {
+                <td>Akcija</td>
+            }
         </tr>
     </thead>
     <tbody>
@@ -27,16 +31,22 @@
                 <td>@x.Id</td>
                 <td>@x.Naziv</td>
                 <td>@x.Oznaka</td>
-                <td>
-                    <a href="~/ModulAdministrator/Drzava/Uredi/?Id=@x.Id" class="btn btn-primary">Uredi</a>
-                    <a href="~/ModulAdministrator/Drzava/Obrisi/?Id=@x.Id" class="btn btn-danger">Obriši</a>
-                </td>
-
+                @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 1)
+                {
+                    <td>
+                        <a href="~/ModulAdministrator/Drzava/Uredi/?Id=@x.Id" class="btn btn-primary">Uredi</a>
+                        <a href="~/ModulAdministrator/Drzava/Obrisi/?Id=@x.Id" class="btn btn-danger">Obriši</a>
+                    </td>
+                }
             </tr>
         }
 
     </tbody>
 </table>
-<a href="~/ModulAdministrator/Drzava/Dodaj" class="btn  btn-info">Dodaj državu</a>
+
+@if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 1)
+{
+    <a href="~/ModulAdministrator/Drzava/Dodaj" class="btn  btn-info">Dodaj državu</a>
+}
 
 

@@ -1,9 +1,10 @@
 ﻿@using WebApplication2.Models;
 @using Kulturno_sportski_centar.Models;
 @using Kulturno_sportski_centar.DAL;
+@using Kulturno_sportski_centar.Helper;
 @{
     //Layout = null;
-    
+
     ViewBag.Title = "Korisnik";
 
 }
@@ -14,11 +15,11 @@
 
 @using (Html.BeginForm("Spremi", "Korisnik"))
 {
-    @Html.HiddenFor(model=>model.Id)
+    @Html.HiddenFor(model => model.Id)
     <div class="form-group">
         <label>Ime</label>
-        @Html.TextBoxFor(model => model.Ime, new { @class="form-control"})
-        @Html.ValidationMessageFor(model=>model.Ime)
+        @Html.TextBoxFor(model => model.Ime, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Ime)
     </div>
     <div class="form-group">
         <label>Prezime</label>
@@ -27,10 +28,10 @@
     </div>
     <div class="form-group">
         <label>Datum rođenja</label>
-        @Html.TextBoxFor(model => model.DatumRodjenja, new { @class = "form-control" })
-    
+        @Html.TextBoxFor(model => model.DatumRodjenja)
+        @Html.ValidationMessageFor(model => model.DatumRodjenja)
     </div>
-    
+
     <div class="form-group">
         <label>JMBG</label>
         @Html.TextBoxFor(model => model.JMBG, new { @class = "form-control" })
@@ -49,7 +50,7 @@
     <div class="form-group">
         <label>Email</label>
         @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-        
+
     </div>
     <div class="form-group">
         <label>Telefon</label>
@@ -57,15 +58,26 @@
     </div>
     <div class="form-group">
         <label>Grad</label>
-        @Html.DropDownListFor(modul => modul.GradId, Model.Gradovi, new { @class = "form-control" } )
+        @Html.DropDownListFor(modul => modul.GradId, Model.Gradovi, new { @class = "form-control" })
     </div>
-  
     <div class="form-group">
-        <label>Uloga</label>
-        @Html.DropDownListFor(modul => modul.UlogaId, Model.Uloge, new { @class = "form-control" } )
+        <label>Adresa</label>
+        @Html.TextBoxFor(modul => modul.Adresa, new { @class = "form-control" })
     </div>
+    if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 1 && Model.KorisnckoIme != Autentifikacija.KorisnikSesija.Osoba.KorisnickoIme)
+    {
+        <div class="form-group">
+            <label>Uloga</label>
+            @Html.DropDownListFor(modul => modul.UlogaId, Model.Uloge, new { @class = "form-control" })
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(modul=>modul.UlogaId)
+    }
+    <br />
     @Html.ValidationSummary()
     <input type="submit" value="Snimi" class="btn btn-success" />
 
 
-}
+    }

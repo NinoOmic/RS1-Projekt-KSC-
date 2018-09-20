@@ -16,15 +16,14 @@ namespace Kulturno_sportski_centar.DAL
         {
 
         }
-        public DbSet<DodatnaOprema> DodatnaOprema { get; set; }
+
         public DbSet<Dogadjaj> Dogadjaj { get; set; }
         public DbSet<Drzava> Drzava { get; set; }
         public DbSet<Grad> Grad { get; set; }
-        
+        public DbSet<RezervacijaZaDogadjaj> RezervacijaZaDogadjaj { get; set; }
         public DbSet<Izvjestaj> Izvjestaj { get; set; }
         public DbSet<Korisnik> Korisnik { get; set; }
         public DbSet<KulturnoSportskiCentar> KulturnoSportskiCentar { get; set; }
-        public DbSet<Ocjena> Ocjena { get; set; }
         public DbSet<Oprema> Oprema { get; set; }
         public DbSet<Osoba> Osoba { get; set; }
         public DbSet<RadnoMjesto> RadnoMjesto { get; set; }
@@ -34,8 +33,6 @@ namespace Kulturno_sportski_centar.DAL
         public DbSet<Termin> Termin { get; set; }
         public DbSet<Uplata> Uplata { get; set; }
         public DbSet<Uposlenik> Uposlenik { get; set; }
-
-        public DbSet<Usluga> Usluga { get; set; }
         public DbSet<VrstaDogadjaja> VrstaDogadjaja { get; set; }
         public DbSet<UlogaNaSistemu> UlogaNaSistemu { get; set; }
 

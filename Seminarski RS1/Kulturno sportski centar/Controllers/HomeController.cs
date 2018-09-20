@@ -18,5 +18,10 @@ namespace Kulturno_sportski_centar.Controllers
 
             return View();
         }
+
+        public ActionResult HomeKorisnik()
+        {
+            return View("HomeKorisnik");
+        }
     }
 }

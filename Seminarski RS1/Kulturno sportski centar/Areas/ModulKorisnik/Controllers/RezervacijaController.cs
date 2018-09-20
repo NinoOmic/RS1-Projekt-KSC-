@@ -18,20 +18,42 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
             if (Autentifikacija.KorisnikSesija == null)
                 return RedirectToAction("Index", "Login", new { area = "" });
             RezervacijaPrikaziViewModel Model = new RezervacijaPrikaziViewModel();
+
             Model.Termini = ctx.Termin.ToList();
+
             Model.Korisnici = ctx.Korisnik.ToList();
             ProvjeraRezervacija();
-            Model.Rezervacije = ctx.Rezervacija
-                .Select(x => new RezervacijaPrikaziViewModel.RezervacijaInfo
-                {
-                    Id = x.Id,
-                    Datum = x.Termin.Datum,
-                    Pocetak = x.Termin.Pocetak,
-                    Kraj = x.Termin.Kraj,
-                    Korisnik = x.Korisnik.Osoba.KorisnickoIme,
-                    Sala = x.Termin.Sala.Naziv,
-                    Zavrsena = x.Zavrsena
-                }).ToList();
+            if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 2)
+            {
+                Model.Rezervacije = ctx.Rezervacija.Where(x => x.Korisnik.OsobaId == Autentifikacija.KorisnikSesija.OsobaId)
+                    .Select(x => new RezervacijaPrikaziViewModel.RezervacijaInfo
+                    {
+                        Id = x.Id,
+                        Datum = x.Termin.Datum,
+                        Pocetak = x.Termin.Pocetak,
+                        Kraj = x.Termin.Kraj,
+                        Korisnik = x.Korisnik.Osoba.KorisnickoIme,
+                        Sala = x.Termin.Sala.Naziv,
+                        Zavrsena = x.Zavrsena
+                    }).ToList();
+            }
+            else
+            {
+                Model.Rezervacije = ctx.Rezervacija
+                    .Select(x => new RezervacijaPrikaziViewModel.RezervacijaInfo
+                    {
+                        Id = x.Id,
+                        Datum = x.Termin.Datum,
+                        Pocetak = x.Termin.Pocetak,
+                        Kraj = x.Termin.Kraj,
+                        Korisnik = x.Korisnik.Osoba.KorisnickoIme,
+                        Sala = x.Termin.Sala.Naziv,
+                        Zavrsena = x.Zavrsena
+                    }).ToList();
+            }
+
+
+
             return View("Prikazi",Model);
         }
         private void ProvjeraRezervacija()
@@ -59,6 +81,7 @@ namespace Kulturno_sportski_centar.Areas.ModulKorisnik.Controllers
                 return RedirectToAction("Index", "Login", new { area = "" });
             Rezervacija R = new Rezervacija();
             R = ctx.Rezervacija.Where(x => x.Id == Id).FirstOrDefault();
+            ctx.Termin.Where(x => x.Id == R.TerminId).FirstOrDefault().Rezervisan = false;
             ctx.Rezervacija.Remove(R);
             ctx.SaveChanges();
 

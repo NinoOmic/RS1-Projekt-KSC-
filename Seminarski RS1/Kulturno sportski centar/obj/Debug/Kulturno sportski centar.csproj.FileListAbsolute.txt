@@ -133,3 +133,30 @@ C:\Users\Mirza\Desktop\New folder\Seminarski RS1\Seminarski RS1\Kulturno sportsk
 C:\Users\Mirza\Desktop\New folder\Seminarski RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.csproj.CopyComplete
 C:\Users\Mirza\Desktop\New folder\Seminarski RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.dll
 C:\Users\Mirza\Desktop\New folder\Seminarski RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.pdb
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\Kulturno sportski centar.dll.config
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\Kulturno sportski centar.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\Kulturno sportski centar.pdb
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\EntityFramework.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\EntityFramework.SqlServer.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Helpers.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Mvc.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Razor.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Webpages.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Webpages.Razor.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\EntityFramework.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\EntityFramework.SqlServer.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Razor.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Webpages.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Webpages.Razor.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Helpers.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\bin\System.Web.Mvc.xml
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.csprojAssemblyReference.cache
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.csproj.CoreCompileInputs.cache
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.csproj.CopyComplete
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.dll
+C:\Users\Gittara\Desktop\RS1 Seminarski\Implementacija\Seminarski-RS1\Seminarski RS1\Kulturno sportski centar\obj\Debug\Kulturno sportski centar.pdb

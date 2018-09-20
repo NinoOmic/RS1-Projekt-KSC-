@@ -14,7 +14,7 @@ namespace WebApplication2.Models
            
         public int Kolicina { get; set; }
         public int SalaId { get; set; }
-        public Sala Sala { get; set; }
+        public virtual Sala Sala { get; set; }
 
 
     }

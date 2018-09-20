@@ -114,7 +114,24 @@
     <Content Include="Areas\ModulKorisnik\Views\Rezervacija\Detalji.cshtml" />
     <Content Include="Areas\ModulKorisnik\Views\Rezervacija\Index.cshtml" />
     <Content Include="Areas\ModulAdministrator\Views\Lokacija\Index.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Sala\DodajSalu.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Oprema\Prikazi.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Oprema\Dodaj.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Dogadjaj\Prikazi.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\VrstaDogadjaja\Prikazi.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\VrstaDogadjaja\Dodaj.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Dogadjaj\Dodaj.cshtml" />
+    <Content Include="Areas\ModulKorisnik\Views\RezervacijaZaDogadjaj\Prikazi.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Dogadjaj\MojiDogadjaji.cshtml" />
+    <Content Include="Areas\ModulAdministrator\Views\Uposlenik\Prikazi.cshtml" />
+    <Content Include="Areas\ModulAdministrator\Views\Uposlenik\Dodaj.cshtml" />
+    <Content Include="Areas\ModulAdministrator\Views\Uposlenik\Uredi.cshtml" />
+    <Content Include="Areas\ModulAdministrator\Views\RadnoMjesto\Prikazi.cshtml" />
+    <Content Include="Areas\ModulAdministrator\Views\RadnoMjesto\Dodaj.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Izvjestaj\Prikazi.cshtml" />
+    <Content Include="Areas\ModulZaposlenik\Views\Izvjestaj\Dodaj.cshtml" />
     <None Include="Properties\PublishProfiles\rs1104.app.fit.ba - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\rs1104.app.fit.ba - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -163,22 +180,44 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\ModulAdministrator\Controllers\LokacijaController.cs" />
+    <Compile Include="Areas\ModulAdministrator\Controllers\RadnoMjestoController.cs" />
+    <Compile Include="Areas\ModulAdministrator\Controllers\UposlenikController.cs" />
+    <Compile Include="Areas\ModulAdministrator\Models\DodajRadnoMjestoVM.cs" />
+    <Compile Include="Areas\ModulAdministrator\Models\DodajUposlenikaVM.cs" />
     <Compile Include="Areas\ModulAdministrator\Models\DrzavaEditModelView.cs" />
     <Compile Include="Areas\ModulAdministrator\Models\DrzavaPrikaziViewModel.cs" />
     <Compile Include="Areas\ModulAdministrator\Models\GradEditViewModel.cs" />
     <Compile Include="Areas\ModulAdministrator\Models\GradPrikaziViewModel.cs" />
+    <Compile Include="Areas\ModulAdministrator\Models\RadnoMjestoPrikaziVM.cs" />
     <Compile Include="Areas\ModulAdministrator\Models\RegijaEditViewModel.cs" />
     <Compile Include="Areas\ModulAdministrator\Models\RegijaPrikaziViewModel.cs" />
+    <Compile Include="Areas\ModulAdministrator\Models\UposlenikPrikaziVM.cs" />
+    <Compile Include="Areas\ModulAdministrator\Models\UrediUposlenikVM.cs" />
     <Compile Include="Areas\ModulAdministrator\ModulAdministratorAreaRegistration.cs" />
     <Compile Include="Areas\ModulAdministrator\Controllers\DrzavaController.cs" />
     <Compile Include="Areas\ModulAdministrator\Controllers\GradController.cs" />
     <Compile Include="Areas\ModulKorisnik\Controllers\RezervacijaController.cs" />
+    <Compile Include="Areas\ModulKorisnik\Controllers\RezervacijaZaDogadjajController.cs" />
     <Compile Include="Areas\ModulKorisnik\Models\KorisnikEditViewModel.cs" />
     <Compile Include="Areas\ModulKorisnik\Models\KorisnikPrikaziDetaljnoViewModel.cs" />
     <Compile Include="Areas\ModulKorisnik\Models\KorisnikPrikaziViewModel.cs" />
+    <Compile Include="Areas\ModulKorisnik\Models\PrikaziKarteVM.cs" />
     <Compile Include="Areas\ModulKorisnik\Models\RezervacijaDodajModelView.cs" />
     <Compile Include="Areas\ModulKorisnik\Models\RezervacijaPrikaziViewModel.cs" />
     <Compile Include="Areas\ModulKorisnik\ModulKorisnikAreaRegistration.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Controllers\DogadjajController.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Controllers\IzvjestajController.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Controllers\OpremaController.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Controllers\VrstaDogadjajaController.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\DodajDogadjajVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\DodajIzvjestajVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\DodajOpremuVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\DodajSaluVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\DodajVrstuDogadjajaVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\PrikaziIzvjestajVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\PrikaziVrstuDogadjajaVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\PrikaziDogadjajeVM.cs" />
+    <Compile Include="Areas\ModulZaposlenik\Models\PrikaziOpremuVM.cs" />
     <Compile Include="Areas\ModulZaposlenik\Models\TerminEditViewModel.cs" />
     <Compile Include="Areas\ModulZaposlenik\Models\TerminPrikaziViewModel.cs" />
     <Compile Include="Areas\ModulZaposlenik\ModulZaposlenikAreaRegistration.cs" />
@@ -189,13 +228,13 @@
     <Compile Include="Areas\ModulAdministrator\Controllers\RegijaController.cs" />
     <Compile Include="Areas\ModulZaposlenik\Controllers\SalaController.cs" />
     <Compile Include="Areas\ModulZaposlenik\Controllers\TerminController.cs" />
+    <Compile Include="Controllers\RegistracijaController.cs" />
     <Compile Include="DAL\MojContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Autentifikacija.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DodatnaOprema.cs" />
     <Compile Include="Models\Dogadjaj.cs" />
     <Compile Include="Models\Drzava.cs" />
     <Compile Include="Models\Grad.cs" />
@@ -203,20 +242,20 @@
     <Compile Include="Models\Izvjestaj.cs" />
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\KulturnoSportskiCentar.cs" />
-    <Compile Include="Models\Ocjena.cs" />
     <Compile Include="Models\Oprema.cs" />
     <Compile Include="Models\Osoba.cs" />
     <Compile Include="Models\RadnoMjesto.cs" />
     <Compile Include="Models\Regija.cs" />
     <Compile Include="Models\Rezervacija.cs" />
+    <Compile Include="Models\RezervacijaZaDogadjaj.cs" />
     <Compile Include="Models\Sala.cs" />
     <Compile Include="Models\Termin.cs" />
     <Compile Include="Models\UlogaNaSistemu.cs" />
     <Compile Include="Models\Uplata.cs" />
     <Compile Include="Models\Uposlenik.cs" />
-    <Compile Include="Models\Usluga.cs" />
     <Compile Include="Models\VrstaDogadjaja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RegistracijaVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -319,6 +358,9 @@
     <Content Include="Template\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="Template\vendor\jquery\jquery.min.map" />
     <Content Include="Template\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Registracija\Registracija.cshtml" />
+    <Content Include="Views\Registracija\Pocetna.cshtml" />
+    <Content Include="Views\Home\HomeKorisnik.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

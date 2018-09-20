@@ -11,6 +11,6 @@ namespace Kulturno_sportski_centar.Models
         public int Id { get; set; }
         public bool isActive { get; set; }
 
-    public string Uloga { get; set; }
+        public string Uloga { get; set; }
     }
 }

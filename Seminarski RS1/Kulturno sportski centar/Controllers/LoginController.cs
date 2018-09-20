@@ -24,15 +24,21 @@ namespace Kulturno_sportski_centar.Controllers
             using (MojContext db = new MojContext())
             {
                 Korisnik Korisnik = db.Korisnik.Include(x=>x.Osoba).Where(x => x.Osoba.KorisnickoIme == username).FirstOrDefault();
-                if (password==""||username=="")
+                if (password==""||username==""||Korisnik==null)
                 {
                     return RedirectToAction("Index", "Login");
 
                 }
-                else if (Korisnik.Osoba.Lozinka == password)
+                else if (Korisnik.Osoba.Lozinka == password && Korisnik.UlogaNaSistemuId==1)
                 {
                     Autentifikacija.KorisnikSesija = Korisnik;
+                    Autentifikacija.KorisnikSesija.UlogaNaSistemuId = Korisnik.UlogaNaSistemuId;
                     return RedirectToAction("Index", "Home");
+                }else if(Korisnik.Osoba.Lozinka == password && (Korisnik.UlogaNaSistemuId == 2 || Korisnik.UlogaNaSistemuId == 3))
+                {
+                    Autentifikacija.KorisnikSesija = Korisnik;
+                    Autentifikacija.KorisnikSesija.UlogaNaSistemuId = Korisnik.UlogaNaSistemuId;
+                    return RedirectToAction("HomeKorisnik", "Home");
                 }
                                    
                 else

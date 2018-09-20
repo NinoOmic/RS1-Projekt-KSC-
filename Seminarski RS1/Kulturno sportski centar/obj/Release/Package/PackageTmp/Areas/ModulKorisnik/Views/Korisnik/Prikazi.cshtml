@@ -1,5 +1,6 @@
 ﻿@using WebApplication2.Models;
 @using Kulturno_sportski_centar.Areas.ModulKorisnik.Models;
+@using Kulturno_sportski_centar.Helper;
 @{
     // Layout = null;
 
@@ -23,7 +24,7 @@
             <td>Prezime</td>
             <td>Korisnicko ime</td>
             <td>Uloga</td>
-            
+
             <td>Akcija</td>
         </tr>
     </thead>
@@ -38,16 +39,25 @@
                 <td>@a.KorisnickoIme</td>
 
                 <td>@a.UlogaNaSistemu</td>
-                
 
-                <td>
-                    <a href="~/ModulKorisnik/Korisnik/Detalji/?Id=@a.Id" class="btn btn-info">Detaljno</a>
-                    <a href="~/ModulKorisnik/Korisnik/Uredi/?Id=@a.Id" class="btn btn-primary">Uredi</a>
-                    <a href="~/ModulKorisnik/Korisnik/Obrisi/?Id=@a.Id" class="btn btn-danger">Obrisi</a>
-                </td>
+                @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId==1)
+                {
+                    <td>
+                        <a href="~/ModulKorisnik/Korisnik/Detalji/?Id=@a.Id" class="btn btn-info">Detaljno</a>
+                        <a href="~/ModulKorisnik/Korisnik/Uredi/?Id=@a.Id" class="btn btn-primary">Uredi</a>
+                        @if (a.Id != Autentifikacija.KorisnikSesija.Id)
+                        {
+                        <a href="~/ModulKorisnik/Korisnik/Obrisi/?Id=@a.Id" class="btn btn-danger">Obrisi</a>
+                        }
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
 
-<a href="~/ModulKorisnik/Korisnik/Dodaj" class="btn  btn-info">Dodaj Korisnika</a>
+@if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 1)
+{
+    <a href="~/ModulKorisnik/Korisnik/Dodaj" class="btn  btn-info">Dodaj Korisnika</a>
+    <a href="/ModulAdministrator/Uposlenik/Prikazi" class="btn btn-info">Uposlenici</a>
+}

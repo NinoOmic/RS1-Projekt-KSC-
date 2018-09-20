@@ -53,7 +53,7 @@ namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
                 return RedirectToAction("Index", "Login", new { area = "" });
             TerminEditViewModel Model = new TerminEditViewModel();
             Model.Sale = UcitajSale();
-            
+            Model.Datum = DateTime.Now;
             
             return View("Dodaj",Model);
         }
@@ -98,10 +98,7 @@ namespace Kulturno_sportski_centar.Areas.ModulZaposlenik.Controllers
                     ctx.SaveChanges();
                 }
                 pocetak = new TimeSpan(10, 0, 0);
-
-
             }
-            
 
             return RedirectToAction("Prikazi");
         }

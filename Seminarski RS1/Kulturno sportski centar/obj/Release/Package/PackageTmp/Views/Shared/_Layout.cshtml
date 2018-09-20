@@ -21,101 +21,159 @@
     @using Kulturno_sportski_centar.Helper;
     @if (Autentifikacija.KorisnikSesija != null)
     {
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <a class="navbar-brand" href="/Home">Kulturno sportski centar</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                        <a class="nav-link" href="/Home">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 2)
+        {
+            <a class="navbar-brand" href="/Home/HomeKorisnik">Kulturno sportski centar</a>
+        }
+        else
+        {
+            <a class="navbar-brand" href="/Home/Index">Kulturno sportski centar</a>
+        }
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId == 2)
+                    {
+                        <a class="nav-link" href="/Home/HomeKorisnik">
                             <i class="fa fa-fw fa-dashboard"></i>
                             <span class="nav-link-text">Početna</span>
                         </a>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                        <a class="nav-link" href="@Url.Action("Index", "Termin", new { Area = "ModulZaposlenik"})">
-                            <i class="fa fa-calendar"></i>
-                            <span class="nav-link-text">Termini</span>
+                    }
+                    else
+                    {
+                        <a class="nav-link" href="/Home/Index">
+                            <i class="fa fa-fw fa-dashboard"></i>
+                            <span class="nav-link-text">Početna</span>
                         </a>
-                    </li>
+                    }
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="@Url.Action("Index", "Termin", new { Area = "ModulZaposlenik" })">
+                        <i class="fa fa-calendar"></i>
+                        <span class="nav-link-text">Termini</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="@Url.Action("Index", "Rezervacija", new { Area = "ModulKorisnik"})">
+                        <i class="fa fa-check"></i>
+                        <span class="nav-link-text">Rezervacije</span>
+                    </a>
+                </li>
+                @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId != 2)
+                {
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                        <a class="nav-link" href="@Url.Action("Index", "Rezervacija", new { Area = "ModulKorisnik"})">
-                            <i class="fa fa-check"></i>
-                            <span class="nav-link-text">Rezervacije</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                        <a class="nav-link" href="@Url.Action("Index", "Korisnik", new { Area = "ModulKorisnik"})">
+                        <a class="nav-link" href="@Url.Action("Index", "Korisnik", new { Area = "ModulKorisnik" })">
                             <i class="fa fa-users"></i>
                             <span class="nav-link-text">Korisnici</span>
                         </a>
                     </li>
+                }
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="@Url.Action("Prikazi", "Sala", new { Area = "ModulZaposlenik" })">
+                        <i class="fa fa-bank"></i>
+                        <span class="nav-link-text">Sale</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="/ModulKorisnik/Korisnik/Detalji/?Id=@Autentifikacija.KorisnikSesija.Id">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-link-text">@Autentifikacija.KorisnikSesija.Osoba.Ime @Autentifikacija.KorisnikSesija.Osoba.Prezime  </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="@Url.Action("Prikazi", "Dogadjaj", new { Area = "ModulZaposlenik" })">
+                        <i class="fa fa-soccer-ball-o"></i>
+                        <span class="nav-link-text">Događaji</span>
+                    </a>
+                </li>
+                @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId != 2)
+                {
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                        <a class="nav-link" href="@Url.Action("Index", "Sala", new { Area = "ModulZaposlenik"})">
-                            <i class="fa fa-university"></i>
-                            <span class="nav-link-text">Sale</span>
+                        <a class="nav-link" href="@Url.Action("Index", "Korisnik", new { Area = "ModulKorisnik" })">
+                            <i class="fa fa-file-archive-o"></i>
+                            <span class="nav-link-text">Izvještaji(potrebno implementirati)</span>
                         </a>
                     </li>
+                }
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                    <a class="nav-link" href="@Url.Action("Prikazi", "RezervacijaZaDogadjaj", new { Area = "ModulKorisnik" })">
+                        <i class="fa fa-ticket"></i>
+                        <span class="nav-link-text">Karte</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                        <i class="fa fa-globe"></i>
+                        <span class="nav-link-text">Lokacija</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                        <li>
+                            <a href="@Url.Action("Index", "Drzava", new { Area = "ModulAdministrator" })">
+                                <i class="fas fa-map-marker-alt"></i>Država
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Regija", new { Area = "ModulAdministrator" })">
+                                <i class="fas fa-map-marker-alt"></i>Regija
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Grad", new { Area = "ModulAdministrator" })">
+                                <i class="fas fa-map-marker-alt"></i>Grad
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-                            <i class="fa fa-globe"></i>
-                            <span class="nav-link-text">Lokacija</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-                            <li>
-                                <a href="@Url.Action("Index", "Drzava", new { Area = "ModulAdministrator"})">
-                                    <i class="fas fa-map-marker-alt"></i>Država
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "Regija", new { Area = "ModulAdministrator"})">
-                                    <i class="fas fa-map-marker-alt"></i>Regija
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "Grad", new { Area = "ModulAdministrator"})">
-                                    <i class="fas fa-map-marker-alt"></i>Grad
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
 
+            </ul>
+            <ul class="navbar-nav sidenav-toggler">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
 
-                </ul>
-                <ul class="navbar-nav sidenav-toggler">
-                    <li class="nav-item">
-                        <a class="nav-link text-center" id="sidenavToggler">
-                            <i class="fa fa-fw fa-angle-left"></i>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/ModulKorisnik/Korisnik/Detalji/?Id=@Autentifikacija.KorisnikSesija.Id">
-                            <i class="fa fa-id-card"></i>Profil
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-fw fa-sign-out"></i>Odjava
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulKorisnik/Korisnik/Detalji/?Id=@Autentifikacija.KorisnikSesija.Id">
+                        <i class="fa fa-id-card"></i> @Autentifikacija.KorisnikSesija.Osoba.Ime @Autentifikacija.KorisnikSesija.Osoba.Prezime
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-fw fa-sign-out"></i>Odjava
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
         <div class="content-wrapper">
             <div class="container-fluid">
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="/home">Početna</a>
-                    </li>
-                    <li class="breadcrumb-item active">@ViewBag.Title</li>
-                </ol>
+                    @if (Autentifikacija.KorisnikSesija.UlogaNaSistemuId != 2)
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index">Početna</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="/Home/HomeKorisnik">Početna</a>
+                        </li>
+                    }
+                        <li class="breadcrumb-item active">@ViewBag.Title</li>
+                    </ol>
             </div>
 
             <footer class="sticky-footer">
